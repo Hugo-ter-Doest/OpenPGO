@@ -1,6 +1,8 @@
 De informatie komt vanuit de Publieke MedMij pagina: https://afsprakenstelsel.medmij.nl 
 Alle links in de documenten verwijzen naar https://afsprakenstelsel.medmij.nl documentatie set - ook met de nieuwste informatie.  
 
+De laaste schemas te vinden op: https://afsprakenstelsel.medmij.nl/display/PUBLIC/XML-schema
+
 Coding standards
 
  - Directory structure:
