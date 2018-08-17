@@ -1,4 +1,5 @@
-De informatie komt vanuit de Publieke MedMij pagina: https://afsprakenstelsel.medmij.nl
+De informatie komt vanuit de Publieke MedMij pagina: https://afsprakenstelsel.medmij.nl 
+Alle links in de documenten verwijzen naar https://afsprakenstelsel.medmij.nl documentatie set - ook met de nieuwste informatie.  
 
 Coding standards
 
