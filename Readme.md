@@ -1,3 +1,5 @@
+De informatie komt vanuit de Publieke MedMij pagina: https://afsprakenstelsel.medmij.nl
+
 Coding standards
 
  - Directory structure:
