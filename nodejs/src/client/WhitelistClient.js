@@ -18,7 +18,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 "use strict";
 
-var DEBUG = true;
 
 var _ = require('underscore');
 
@@ -30,6 +29,7 @@ var path = '/whitelist?wsdl';
 var url = host + ':' + portNumber + path;
 
 var settings = require('./clientSettings.json');
+var DEBUG = settings.debug;
 
 
 // Constructor

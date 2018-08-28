@@ -7,5 +7,6 @@
   "wsdlPath": "../api/medmij/whitelistService.wsdl",
   "clientKeyPath": "../tls/keys/client.key",
   "clientCertPath": "../tls/certs/client.crt",
-  "clientCAPath": "../tls/ca/ca.crt"
+  "clientCAPath": "../tls/ca/ca.crt",
+  "debug": true
 }

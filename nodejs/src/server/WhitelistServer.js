@@ -18,11 +18,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 "use strict";
 
-const DEBUG = true;
-
-const useTLS = false;
-const authenticateClient = false;
-
 var fs = require('fs');
 var util = require('util');
 var soap = require('soap');
@@ -35,6 +30,7 @@ var xml2js = require('xml2js');
 var _ = require('underscore');
 
 var settings = require('./serverSettings.json');
+var DEBUG = settings.debug;
 
 var whitelistJSON = null;
 
