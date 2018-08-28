@@ -1,0 +1,25 @@
+{
+  "name": "medmij-list-services",
+  "version": "0.1.0",
+  "description": "Contains three API's for list services including reference imlpementations for client and server",
+  "main": "index.js",
+  "dependencies": {
+    "jasmine-node": "^1.15.0",
+    "node-xmllint": "^1.0.0",
+    "soap": "^0.24.0",
+    "underscore": "^1.9.1",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "MedMij",
+    "whitelist",
+    "Zorgaanbiederlijst",
+    "OAuth client lijst"
+  ],
+  "author": "Hugo W.L. ter Doest",
+  "license": "AGPL-3.0-or-later"
+}

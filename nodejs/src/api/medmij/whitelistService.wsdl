@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+WSDL specification for MedMij whitelist provisioning
+Copyright (C) 2018 Hugo W.L. ter Doest
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<wsdl:definitions name="whitelist" targetNamespace="http://www.medmij.nl/whitelist"
+                  xmlns:tns="http://www.medmij.nl/whitelist"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:wl="xmlns://afsprakenstelsel.medmij.nl/whitelist/release2/">
+  
+  <wsdl:documentation>
+    Service: whitelistService
+    Version: 0.1
+    Author: Hugo W.L. ter Doest
+    Description: the whitelist service provides operations for checking if a node is whitelisted by MedMij.
+  </wsdl:documentation>
+  
+  <wsdl:types>
+    <xs:schema>
+      <xs:import namespace="xmlns://afsprakenstelsel.medmij.nl/whitelist/release2/" 
+        schemaLocation="/home/hugo/Workspace/OpenPGO/nodejs/src/api/medmij/MedMij_Whitelist.xsd"/>
+    </xs:schema>
+    
+    <xs:schema targetNamespace="http://www.medmij.nl/whitelist">
+      <xs:element name="medMijNodeNaam" type="xs:string"/>
+      <xs:element name="isMedMijNodeReturnValue" type="xs:boolean"/>
+    </xs:schema>
+  </wsdl:types>
+  
+  <wsdl:message name="getWhitelistRequest">
+    <!--No parameters -->
+  </wsdl:message>
+  
+  <wsdl:message name="getWhitelistResponse">
+    <wsdl:part name="body" element="wl:Whitelist"/>
+  </wsdl:message>
+  
+  <wsdl:message name="isMedMijNodeRequest">
+    <wsdl:part name="body" element="tns:medMijNodeNaam"/>
+  </wsdl:message>
+  
+  <wsdl:message name="isMedMijNodeResponse">
+    <wsdl:part name="body" element="tns:isMedMijNodeReturnValue"/>
+  </wsdl:message>
+  
+  <wsdl:portType name="whitelistPortType">
+    <wsdl:documentation>Specifies two operations: 
+      (1) an operation that returns the complete whitelist 
+      (2) an operation that checks if a certain node is on the whitelist. 
+    </wsdl:documentation>
+    <wsdl:operation name="getWhitelist">
+      <wsdl:input message="tns:getWhitelistRequest"/>
+      <wsdl:output message="tns:getWhitelistResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="isMedMijNode">
+      <wsdl:input message="tns:isMedMijNodeRequest"/>
+      <wsdl:output message="tns:isMedMijNodeResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="whitelistSoapBinding" type="tns:whitelistPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getWhitelist">
+      <soap:operation soapAction="getWhitelist"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+        <wsdl:operation name="isMedMijNode">
+      <soap:operation soapAction="isMedMijNode"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>  
+  </wsdl:binding>
+  
+  <wsdl:service name="whitelistService">
+    <wsdl:port name="whitelistPort" binding="tns:whitelistSoapBinding">
+      <soap:address location="https://localhost:8000/whitelist"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

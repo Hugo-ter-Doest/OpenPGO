@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="9a5f3b85-1e44-4a57-8176-4d2379f31b64" activeEnvironment="Default" name="TestWhiteListv2" resourceRoot="" soapui-version="5.4.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="8c16e64a-3141-4aa6-8888-8a3e7bd5ecdd" wsaVersion="NONE" name="whitelistSoapBinding" type="wsdl" bindingName="{http://www.medmij.nl/whitelist}whitelistSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/home/hugo/Workspace/soaptest/src/wsdl/whitelistService.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/hugo/Workspace/soaptest/src/wsdl/whitelistService.wsdl"><con:part><con:url>file:/home/hugo/Workspace/soaptest/src/wsdl/whitelistService.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="whitelist" targetNamespace="http://www.medmij.nl/whitelist" xmlns:tns="http://www.medmij.nl/whitelist" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wl="xmlns://afsprakenstelsel.medmij.nl/whitelist/release2/">
+  <wsdl:types>
+    <xs:schema>
+      <xs:import namespace="xmlns://afsprakenstelsel.medmij.nl/whitelist/release2/" schemaLocation="MedMij_Whitelist.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getWhitelistRequest">
+    <wsdl:part name="body" xs:nil="true" type="xs:string"/>
+  </wsdl:message>
+  <wsdl:message name="getWhitelistResponse">
+    <wsdl:part name="body" type="wl:Whitelist"/>
+  </wsdl:message>
+  <wsdl:message name="isMedMijNodeRequest">
+    <wsdl:part name="body" type="xs:string"/>
+  </wsdl:message>
+  <wsdl:message name="isMedMijNodeResponse">
+    <wsdl:part name="body" type="xs:boolean"/>
+  </wsdl:message>
+  <wsdl:portType name="whitelistPortType">
+    <wsdl:operation name="getWhitelist">
+      <wsdl:input message="tns:getWhitelistRequest"/>
+      <wsdl:output message="tns:getWhitelistResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="isMedMijNode">
+      <wsdl:input message="tns:isMedMijNodeRequest"/>
+      <wsdl:output message="tns:isMedMijNodeResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="whitelistSoapBinding" type="tns:whitelistPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getWhitelist">
+      <soap:operation soapAction="getWhitelist"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isMedMijNode">
+      <soap:operation soapAction="isMedMijNode"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="whitelistService">
+    <wsdl:port name="whitelistPort" binding="tns:whitelistSoapBinding">
+      <soap:address location="http://localhost:8000/whitelist"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:/home/hugo/Workspace/soaptest/src/wsdl/MedMij_Whitelist.xsd</con:url><con:content><![CDATA[<!--File version: 2-->
+<xs:schema targetNamespace="xmlns://afsprakenstelsel.medmij.nl/whitelist/release2/" elementFormDefault="qualified" xmlns:wl="xmlns://afsprakenstelsel.medmij.nl/whitelist/release2/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--Root element-->
+  <xs:element name="Whitelist" type="wl:Whitelist"/>
+  <!--SimpleTypes-->
+  <xs:simpleType name="DatumTijdType">
+    <xs:restriction base="xs:dateTime">
+      <xs:pattern value=".{20,}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PositiefnummerType">
+    <xs:restriction base="xs:positiveInteger"/>
+  </xs:simpleType>
+  <xs:simpleType name="HostnameType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(([a-z0-9])([a-z0-9-])*(\.))+([a-z0-9])([a-z0-9-])*([a-z0-9])"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--ComplexTypes-->
+  <xs:complexType name="Whitelist">
+    <xs:sequence>
+      <xs:element name="Tijdstempel" type="wl:DatumTijdType"/>
+      <xs:element name="Volgnummer" type="wl:PositiefnummerType"/>
+      <xs:element name="MedMijNodes" type="wl:MedMijNodes">
+        <xs:unique name="Unieke-MedMijNode">
+          <xs:selector xpath="wl:MedMijNode"/>
+          <xs:field xpath="."/>
+        </xs:unique>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MedMijNodes">
+    <xs:sequence>
+      <xs:element name="MedMijNode" type="wl:HostnameType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8000/whitelist</con:endpoint></con:endpoints><con:operation id="468ba021-d4b8-4e39-9a75-ebf3bf5b156e" isOneWay="false" action="getWhitelist" name="getWhitelist" bindingOperationName="getWhitelist" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="30ded8e1-750a-44f0-82f1-a16a1973b89d" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/whitelist</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:whit="http://www.medmij.nl/whitelist">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <whit:getWhitelist>
+         <body>?</body>
+      </whit:getWhitelist>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="getWhitelist"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="1fcca800-d770-4469-b396-98f671b2118b" isOneWay="false" action="isMedMijNode" name="isMedMijNode" bindingOperationName="isMedMijNode" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1dd2cd25-d51e-43a5-88a7-7c5a17520708" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/whitelist</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:whit="http://www.medmij.nl/whitelist">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <whit:isMedMijNode>
+         <body>?</body>
+         <body>?</body>
+      </whit:isMedMijNode>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="isMedMijNode"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

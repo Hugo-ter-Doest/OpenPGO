@@ -1,0 +1,11 @@
+{
+  "TLS": true,
+  "twoSided": false,
+  "hostname": "localhost",
+  "servicePath": "whitelist",
+  "portNumber": 8000,
+  "wsdlPath": "../api/medmij/whitelistService.wsdl",
+  "clientKeyPath": "../tls/keys/client.key",
+  "clientCertPath": "../tls/certs/client.crt",
+  "clientCAPath": "../tls/ca/ca.crt"
+}

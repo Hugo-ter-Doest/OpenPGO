@@ -1,0 +1,11 @@
+{
+  "TLS": true,
+  "twoSided": false,
+  "portNumber": 8000,
+  "serverKeyPath": "../tls/keys/server.key",
+  "serverCertPath": "../tls/certs/server.crt",
+  "serverCAPath": "../tls/ca/ca.crt",
+  "wsdlPath": "../api/medmij/whitelistService.wsdl",
+  "whitelistSchemaPath": "../api/medmij/MedMij_Whitelist.xsd",
+  "whitelistPath": "../data/MedMij_Whitelist_example.xml"
+}
