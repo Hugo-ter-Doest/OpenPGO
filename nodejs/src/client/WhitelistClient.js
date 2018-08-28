@@ -23,10 +23,6 @@ var _ = require('underscore');
 
 var constants = require('constants');
 var soap = require('soap');
-var portNumber = 8000;
-var host = 'http://localhost';
-var path = '/whitelist?wsdl';
-var url = host + ':' + portNumber + path;
 
 var settings = require('./clientSettings.json');
 var DEBUG = settings.debug;
