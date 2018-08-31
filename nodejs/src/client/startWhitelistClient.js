@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 var Client = require('./WhitelistClient.js');
 
-var client = new Client({TLS: true, twoSided: true}, function(client) {
+var client = new Client({TLS: true, twoSided: false}, function(client) {
   client.isMedMijNode('78834.umcharderwijk.nl', function(err, result) {
     console.log(result);
   });
