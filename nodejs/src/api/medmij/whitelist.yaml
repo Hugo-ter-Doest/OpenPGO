@@ -1,0 +1,78 @@
+swagger: "2.0"
+info:
+  description: "This is a whitelist server for the MedMij program"
+  version: "0.1.0"
+  title: "MedMij Whitelist"
+  termsOfService: "MedMij ..."
+  contact:
+    email: "hwl.ter.doest@gmail.com"
+  license:
+    name: "AGPL-3.0-or-later"
+    url: "https://www.gnu.org/licenses/agpl-3.0.en.html"
+host: "whitelist.medmij.nl"
+basePath: "/v0.1.0"
+tags:
+- name: "whitelist"
+  description: "MedMij Whitelist of hostnames"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "http"
+paths:
+  /medmijnode:
+    get:
+      tags:
+        - "whitelist"
+      summary: "Get the whitelist"
+      description: "A hostname can be provided for validation"
+      operationId: "getWhitelist"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Whitelist"
+  /medmijnode/ismedmijnode:
+    get:
+      tags:
+      - "validate MedMij node"
+      summary: "Validate hostname"
+      description: "A hostname is provided for validation"
+      operationId: "findHostByName"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "Hostname that should be validated"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "boolean"
+definitions:
+  MedMijNode:
+    type: "object"
+    properties:
+      Hostname:
+        type: "string"
+        format: "hostname"
+  Whitelist:
+    type: "object"
+    properties:
+      Tijdstempel:
+        type: "string"
+        format: "date-time"
+      Volgnummer: 
+        type: "integer"
+        minimum: 0
+      MedMijNodes:
+        type: array
+        items:
+          $ref: '#/definitions/MedMijNode'
