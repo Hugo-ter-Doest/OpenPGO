@@ -35,7 +35,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   <wsdl:types>
     <xs:schema>
       <xs:import namespace="xmlns://afsprakenstelsel.medmij.nl/whitelist/release2/" 
-        schemaLocation="/home/hugo/Workspace/OpenPGO/nodejs/src/api/medmij/MedMij_Whitelist.xsd"/>
+        schemaLocation="/Workspace/OpenPGO/nodejs/src/api/medmij/MedMij_Whitelist.xsd"/>
     </xs:schema>
     
     <xs:schema targetNamespace="http://www.medmij.nl/whitelist">

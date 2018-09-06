@@ -28,53 +28,56 @@ var settings = require('./clientSettings.json');
 var DEBUG = settings.debug;
 
 
-// Constructor
-function Client(clientOptions, callback) {
-  if (clientOptions) {
-    // Override settings 
-    settings = _.extend(settings, clientOptions);
-  }
-  DEBUG && console.log('Client settings: ' + JSON.stringify(settings, null, 2));
-  soap.createClient(settings.wsdlPath, function(err, client) {
-    if (err) {
-      console.log(err);
+class Client {
+  
+  constructor(clientOptions, callback) {
+    if (clientOptions) {
+      // Override settings 
+      settings = _.extend(settings, clientOptions);
     }
-    else {
-      // Create endpoint URL and set it
-      var endPoint = (settings.TLS ? "https://" : "http://") + 
-        settings.hostname + 
-        ':' + settings.portNumber + '/' +
-        settings.servicePath;
-      DEBUG && console.log('Setting the endpoint of the client to ' + endPoint);
-      client.setEndpoint(endPoint);
-      if (settings.TLS) {
-        if (settings.twoSided) {
-          var options = {};
-          client.setSecurity(new soap.ClientSSLSecurity(
-            settings.clientKeyPath,
-            settings.clientCertPath,
-            settings.clientCAPath,
-            options
-          ));
-        }
-        else {
-          var options = {
-            rejectUnauthorized: false,
-            // strictSSL allows us to work with a self-signed certificate
-            strictSSL: false,
-            secureOptions: constants.SSL_OP_NO_TLSv1_2
-          };
-          client.setSecurity(new soap.ClientSSLSecurity(
-            null,
-            null,
-            settings.clientCAPath,
-            options
-          ));
-        }
+    DEBUG && console.log('Client settings: ' + JSON.stringify(settings, null, 2));
+    soap.createClient(settings.wsdlPath, function(err, client) {
+      if (err) {
+        console.log(err);
       }
-      callback(client);
-    }
-  });
+      else {
+        // Create endpoint URL and set it
+        var endPoint = (settings.TLS ? "https://" : "http://") + 
+          settings.hostname + 
+          ':' + settings.portNumber + '/' +
+          settings.servicePath;
+        DEBUG && console.log('Setting the endpoint of the client to ' + endPoint);
+        client.setEndpoint(endPoint);
+        if (settings.TLS) {
+          if (settings.twoSided) {
+            var options = {};
+            client.setSecurity(new soap.ClientSSLSecurity(
+              settings.clientKeyPath,
+              settings.clientCertPath,
+              settings.clientCAPath,
+              options
+            ));
+          }
+          else {
+            var options = {
+              rejectUnauthorized: false,
+              // strictSSL allows us to work with a self-signed certificate
+              strictSSL: false,
+              secureOptions: constants.SSL_OP_NO_TLSv1_2
+            };
+            client.setSecurity(new soap.ClientSSLSecurity(
+              null,
+              null,
+              settings.clientCAPath,
+              options
+            ));
+          }
+        }
+        callback(client);
+      }
+    });
+  }
+  
 }
 
 module.exports = Client;

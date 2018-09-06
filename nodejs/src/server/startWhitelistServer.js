@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 var Server = require('./WhitelistServer');
-var server = new Server({TLS: true, twoSided: true});
+var server = new Server({TLS: true, twoSided: false});
 server.start(function () {
   //
 });
